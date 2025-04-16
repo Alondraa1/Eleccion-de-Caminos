@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elige tu Camino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .paths {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            position: relative;
+        }
+        .path-title {
+            position: absolute;
+            top: -30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: black;
+        }
+        .path-title-left {
+            left: 10%;
+        }
+        .path-title-right {
+            right: 10%;
+        }
+        .path {
+            width: 45%;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: yellow;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            overflow-y: auto; /* Asegura que las frases no se salgan del contenedor */
+        }
+        .path-limiting, .path-supportive {
+            background-image: url('https://images4.imagebam.com/f3/75/b5/ME115CXK_o.png');
+        }
+        .path p {
+            font-size: 0.8em;
+            line-height: 1.3;
+            margin: 5px 0;
+        }
+        .mural {
+            margin-top: 40px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            resize: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .share-link {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #007bff;
+        }
+        .back-button {
+            margin-top: 10px;
+            background-color: #6c757d;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Elige tu Camino</h1>
+        <p>Tienes dos caminos frente a ti. Lee las frases en cada camino y elige aquel con el que más te identifiques.</p>
+        <div class="paths">
+            <div class="path-title path-title-left">Camino Limitante</div>
+            <div class="path-title path-title-right">Camino No Limitante</div>
+            <div class="path path-limiting" onclick="choosePath('limiting')">
+                <p>"Los hombres no destacan en Recursos Humanos"</p>
+                <p>"Eso es solo una fase, ya se le va a pasar"</p>
+                <p>"Si no te sientes cómodo con tu género, es porque estás confundido"</p>
+                <p>"Los hombres no pueden ser femeninos"</p>
+                <p>"Las mujeres de verdad no se visten así"</p>
+                <p>"No puedes cambiar de género, naciste así"</p>
+                <p>"Solo hay dos géneros, punto"</p>
+                <p>"Estás siendo dramático, eso del género es una moda"</p>
+            </div>
+            <div class="path path-supportive" onclick="choosePath('supportive')">
+                <p>"El liderazgo no tiene género"</p>
+                <p>"Tu talento define tu futuro"</p>
+                <p>"Tu identidad es válida, incluso si otros no la entienden aún"</p>
+                <p>"Ser tú misma es un acto de valentía y amor propio"</p>
+                <p>"No hay una forma correcta de ser quien eres, tu identidad es única y hermosa"</p>
+                <p>"Explorar y expresar tu género es parte de conocerte profundamente"</p>
+                <p>"Tú decides quién eres, nadie más puede definirte"</p>
+                <p>"El respeto empieza por reconocerte y celebrarte tal como eres"</p>
+                <p>"No estás solo; hay una comunidad que te apoya y camina contigo"</p>
+            </div>
+        </div>
+        <div id="muralSection" class="hidden mural">
+            <h2>Mural Reflexivo</h2>
+            <p>Escribe una reflexión sobre tu elección:</p>
+            <form id="reflectionForm" action="https://formspree.io/f/xpwpneoa" method="POST">
+                <textarea name="reflexion" id="muralText" placeholder="Escribe aquí..." required></textarea>
+                <button type="submit">Compartir Reflexión</button>
+            </form>
+            <button class="back-button" onclick="goBackToPaths()">Regresar a los Caminos</button>
+        </div>
+        <div id="shareLink" class="hidden share-link">
+            Comparte este juego con otros: <a href="https://tu-dominio.com/juego" target="_blank">https://tu-dominio.com/juego</a>
+        </div>
+    </div>
+
+    <script>
+        function choosePath(pathType) {
+            document.querySelector('.paths').classList.add('hidden');
+            document.getElementById('muralSection').classList.remove('hidden');
+            document.getElementById('shareLink').classList.remove('hidden');
+        }
+
+        function goBackToPaths() {
+            document.getElementById('muralSection').classList.add('hidden');
+            document.querySelector('.paths').classList.remove('hidden');
+            document.getElementById('muralText').value = ''; // Limpiar el texto del mural
+        }
+    </script>
+</body>
+</html>
